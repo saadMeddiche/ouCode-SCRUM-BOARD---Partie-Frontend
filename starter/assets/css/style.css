@@ -1,0 +1,28 @@
+*{
+    text-align: start;
+}
+.pace {
+    display: none;
+}
+
+.main-style {
+    min-height: 100vh;
+    background: url(../img/cover/cover-scrum-board.png) no-repeat fixed;
+    background-size: 360px;
+    background-position: right bottom;
+}
+/* color between tha carts */
+.color{
+    background-color: var(--app-header-divider-bg);
+}
+/* epace between each mini title with big title */
+button > div{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+
+
+
+
+
