@@ -1,5 +1,4 @@
 
-
 // ====================================Call====================================
 
     // Call the title
@@ -27,9 +26,6 @@
 
     //Call the description
     let description = document.getElementById('exampleFormControlTextarea1');
-
-    //Call the save button
-    let saveButton = document.getElementById('saveButton');
 
 ////====================================Fonctions====================================   
 //================================Add task Fonction================================
@@ -63,6 +59,9 @@
 
         //Call the fonction to clear the inputs
         clearInputs();
+
+        //Temporarie solution
+        window.location.reload();
      }
     
 //================================Clear the inputs from the modal Fonction================================
@@ -75,7 +74,9 @@
             description.value='';
     }
 
-    function showdata(){
+//================================Show Tasks Functions Fonction================================
+
+    function showTasks(){
         for(let i =0; i<=dataOfTheTask.length;i++){
             //=================Create new button =================
             let newButton = document.createElement('button');
@@ -84,7 +85,17 @@
             //https://stackoverflow.com/questions/65861988/can-i-add-a-class-with-spaces-to-an-element
             var className = "d-flex flex-row bd-highlight mb-1 w-100 pt-0 px-0 border-0";
             newButton.classList.add.apply(newButton.classList,className.split(" "));
-    
+
+            // i didn't know how to add an attribute to this button [So when i clique a task the Delete & update TASK MODAL Pop up]
+            //https://developer.mozilla.org/en-US/docs/Web/API/Element/setAttribute
+            newButton.setAttribute('data-bs-toggle','modal');
+            newButton.setAttribute('data-bs-target','#staticBackdrop');
+
+            // i didn't know how to add an event to this button [So when i clique a task i can know the index of it]
+            //https://www.w3schools.com/js/js_htmldom_eventlistener.asp
+            
+           
+
             //=================Add the content to the new button=================
             //indicate the form of the green circle
             var greenCircle ; 
@@ -118,14 +129,16 @@
             <div class="">
                 <div class="fw-bold">${dataOfTheTask[i].titleT}</div>
                 <div class="">
-                    <div class="fw-light"># created in ${dataOfTheTask[i].dateT}</div>
+                    <div class="fw-light">#${i+1} created in ${dataOfTheTask[i].dateT}</div>
                     <div class="" title="including as many details as possible.">${dataOfTheTask[i].descriptionT}</div>
                 </div>
                 <div class="">
                     <span type="button" class="btn btn-primary">${dataOfTheTask[i].prioretyT}</span>
                     <span type="button" class="btn btn-secondary">${dataOfTheTask[i].typeT}</span>
+                    <button onclick="deleteTask(${i})" type="button" class="btn btn-danger" id="deleteButton">X</button>
                 </div>
-            </div>`;
+            </div>
+            >`;
     
             // =================add the button and its content to the page=================
            // this numbers [1,2,3] are the indicator of the status
@@ -136,12 +149,31 @@
             } else if (3 == dataOfTheTask[i].statuseT ) {
                 var wichLine = document.querySelector('#done-tasks'); 
             }
-    
+            //Temporarie solution
             wichLine.appendChild(newButton);
         }
     }
+ 
+    
+//================================Delete Fonction================================
+   
+function deleteTask(i){
+    //Remove case from an array
+    //https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Array/splice
+    dataOfTheTask.splice(i,1);
 
-    showdata();
+    //after removing the data from the array we shouls also remove it from the local storaje
+    localStorage.tasks = JSON.stringify(dataOfTheTask);
+
+    //Relaod tha page
+    //https://stackoverflow.com/questions/3715047/how-to-reload-a-page-using-javascript
+    window.location.reload();
+
+    
+}
+
+showTasks();
+
 
 
 
