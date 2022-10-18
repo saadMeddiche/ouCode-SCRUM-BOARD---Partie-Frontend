@@ -9,10 +9,6 @@ let fakeIndex;
     //https://stackoverflow.com/questions/14544104/checkbox-check-event-listener    [Event de clique]
     //Amine
     let checkbox= document.querySelectorAll('#flexRadioDefault');
-
-    let Options= document.querySelectorAll('#Option');
-
-    let Cancel = document.querySelectorAll('cancelButton');
     
     // Call the priorety
     let priorety = document.getElementById('Priorety');
@@ -219,6 +215,38 @@ let fakeIndex;
         if(checkbox[1].value == dataOfTheTask[fakeIndex].typeT){
             checkbox[0].checked = false;
            checkbox[1].checked = true;
+        }
+
+
+        //How to select an option
+        //https://stackoverflow.com/questions/78932/how-do-i-programmatically-set-the-value-of-a-select-box-element-using-javascript
+        if( dataOfTheTask[fakeIndex].prioretyT == "low"){
+            priorety.value = '1';
+            dataOfTheTask[fakeIndex].prioretyT = '1';
+        }
+        if( dataOfTheTask[fakeIndex].prioretyT == "Medium"){
+            priorety.value = '2';
+            dataOfTheTask[fakeIndex].prioretyT = '2';
+        }
+        if( dataOfTheTask[fakeIndex].prioretyT == "High"){
+            priorety.value = '3';
+            dataOfTheTask[fakeIndex].prioretyT = '3';
+        }
+
+console.log(dataOfTheTask[fakeIndex].statuseT);
+        //How to select an option
+        //https://stackoverflow.com/questions/78932/how-do-i-programmatically-set-the-value-of-a-select-box-element-using-javascript
+        if( dataOfTheTask[fakeIndex].statuseT == 1){
+            statuse.value = '1';
+            dataOfTheTask[fakeIndex].statuseT = '1';
+        }
+        if( dataOfTheTask[fakeIndex].statuseT == 2){
+            statuse.value = '2';
+            dataOfTheTask[fakeIndex].statuseT = '2';
+        }
+        if( dataOfTheTask[fakeIndex].statuseT == 3){
+            statuse.value = '3';
+            dataOfTheTask[fakeIndex].statuseT = '3';
         }
 
         date.value = dataOfTheTask[fakeIndex].dateT
