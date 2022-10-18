@@ -1,4 +1,4 @@
-var type="Bug";//Default type
+
 
 // ====================================Call====================================
 
@@ -33,7 +33,7 @@ var type="Bug";//Default type
 
 ////====================================Fonctions====================================   
 //================================Add task Fonction================================
-    
+
     //Solution for [delete old tasks and replace it with new ones]
     //https://www.youtube.com/watch?v=WNQgl__ihHY&list=PLknwEmKsW8Os2kzf3qjR34Z5FS8-pDoLN&index=4  [10:20]
     let dataOfTheTask;
@@ -61,71 +61,10 @@ var type="Bug";//Default type
         //https://www.youtube.com/watch?v=WNQgl__ihHY&list=PLknwEmKsW8Os2kzf3qjR34Z5FS8-pDoLN&index=4   [8:45]
         localStorage.setItem('tasks', JSON.stringify(dataOfTheTask)); 
 
-        //=================Create new button =================
-        let newButton = document.createElement('button');
-
-        // i had a probleme when i was trying to give the button a class, the naviguator was not able to read a class with spaces
-        //https://stackoverflow.com/questions/65861988/can-i-add-a-class-with-spaces-to-an-element
-        var className = "d-flex flex-row bd-highlight mb-1 w-100 pt-0 px-0 border-0";
-        newButton.classList.add.apply(newButton.classList,className.split(" "));
-
-        //=================Add the content to the new button=================
-        //indicate the form of the green circle
-        var greenCircle ; 
-        if (  1 == newTask.statuseT) {
-            greenCircle = `<i class="text-sm-start mx-1">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(16, 239, 10, 1);transform: ;msFilter:;"><path d="M12 6a3.939 3.939 0 0 0-3.934 3.934h2C10.066 8.867 10.934 8 12 8s1.934.867 1.934 1.934c0 .598-.481 1.032-1.216 1.626a9.208 9.208 0 0 0-.691.599c-.998.997-1.027 2.056-1.027 2.174V15h2l-.001-.633c.001-.016.033-.386.441-.793.15-.15.339-.3.535-.458.779-.631 1.958-1.584 1.958-3.182A3.937 3.937 0 0 0 12 6zm-1 10h2v2h-2z"></path><path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z"></path></svg>
-        </i> `;
-        } else if  (2 == newTask.statuseT){
-            greenCircle = `<i class="text-sm-start mx-1">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(16, 239, 10, 1);transform: scaleX(-1);msFilter:progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1);"><path d="M12 22c5.421 0 10-4.579 10-10h-2c0 4.337-3.663 8-8 8s-8-3.663-8-8c0-4.336 3.663-8 8-8V2C6.579 2 2 6.58 2 12c0 5.421 4.579 10 10 10z"></path></svg>
-        </i> `;
-        } else if (3 == newTask.statuseT ) {
-            greenCircle = `<i class="text-sm-start mx-1">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(16, 239, 10, 1);transform: ;msFilter:;"><path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z"></path><path d="M9.999 13.587 7.7 11.292l-1.412 1.416 3.713 3.705 6.706-6.706-1.414-1.414z"></path></svg>
-        </i> `;
-        }
-
-        //Solution of printing [1,2,3] instead of [low,medium,High]
-        if ( 1 == newTask.prioretyT ){
-            newTask.prioretyT = "low";
-        } else if (2 == newTask.prioretyT){
-            newTask.prioretyT = "Medium";
-        } else if (3 == newTask.prioretyT){
-            newTask.prioretyT = "High";
-        }
-
-
-        newButton.innerHTML = `<div class="">
-        ${greenCircle}
-        </div>
-        <div class="">
-            <div class="fw-bold">${newTask.titleT}</div>
-            <div class="">
-                <div class="fw-light"># created in ${newTask.dateT}</div>
-                <div class="" title="including as many details as possible.">${newTask.descriptionT}</div>
-            </div>
-            <div class="">
-                <span type="button" class="btn btn-primary">${newTask.prioretyT}</span>
-                <span type="button" class="btn btn-secondary">${newTask.typeT}</span>
-            </div>
-        </div>`;
-
-        // =================add the button and its content to the page=================
-       // this numbers [1,2,3] are the indicator of the status
-        if (  1 == newTask.statuseT) {
-            var wichLine = document.querySelector('#to-do-tasks');
-        } else if  (2 == newTask.statuseT){
-            var wichLine = document.querySelector('#in-progress-tasks');
-        } else if (3 == newTask.statuseT ) {
-            var wichLine = document.querySelector('#done-tasks'); 
-        }
-
-        wichLine.appendChild(newButton);
-
         //Call the fonction to clear the inputs
         clearInputs();
-    }
+     }
+    
 //================================Clear the inputs from the modal Fonction================================
     function clearInputs(){
             title.value='';
@@ -135,6 +74,75 @@ var type="Bug";//Default type
             date.value='';
             description.value='';
     }
+
+    function showdata(){
+        for(let i =0; i<=dataOfTheTask.length;i++){
+            //=================Create new button =================
+            let newButton = document.createElement('button');
+    
+            // i had a probleme when i was trying to give the button a class, the naviguator was not able to read a class with spaces
+            //https://stackoverflow.com/questions/65861988/can-i-add-a-class-with-spaces-to-an-element
+            var className = "d-flex flex-row bd-highlight mb-1 w-100 pt-0 px-0 border-0";
+            newButton.classList.add.apply(newButton.classList,className.split(" "));
+    
+            //=================Add the content to the new button=================
+            //indicate the form of the green circle
+            var greenCircle ; 
+            if (  1 == dataOfTheTask[i].statuseT) {
+                greenCircle = `<i class="text-sm-start mx-1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(16, 239, 10, 1);transform: ;msFilter:;"><path d="M12 6a3.939 3.939 0 0 0-3.934 3.934h2C10.066 8.867 10.934 8 12 8s1.934.867 1.934 1.934c0 .598-.481 1.032-1.216 1.626a9.208 9.208 0 0 0-.691.599c-.998.997-1.027 2.056-1.027 2.174V15h2l-.001-.633c.001-.016.033-.386.441-.793.15-.15.339-.3.535-.458.779-.631 1.958-1.584 1.958-3.182A3.937 3.937 0 0 0 12 6zm-1 10h2v2h-2z"></path><path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z"></path></svg>
+            </i> `;
+            } else if  (2 == dataOfTheTask[i].statuseT){
+                greenCircle = `<i class="text-sm-start mx-1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(16, 239, 10, 1);transform: scaleX(-1);msFilter:progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1);"><path d="M12 22c5.421 0 10-4.579 10-10h-2c0 4.337-3.663 8-8 8s-8-3.663-8-8c0-4.336 3.663-8 8-8V2C6.579 2 2 6.58 2 12c0 5.421 4.579 10 10 10z"></path></svg>
+            </i> `;
+            } else if (3 == dataOfTheTask[i].statuseT ) {
+                greenCircle = `<i class="text-sm-start mx-1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(16, 239, 10, 1);transform: ;msFilter:;"><path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z"></path><path d="M9.999 13.587 7.7 11.292l-1.412 1.416 3.713 3.705 6.706-6.706-1.414-1.414z"></path></svg>
+            </i> `;
+            }
+    
+            //Solution of printing [1,2,3] instead of [low,medium,High]
+            if ( 1 == dataOfTheTask[i].prioretyT ){
+                dataOfTheTask[i].prioretyT = "low";
+            } else if (2 == dataOfTheTask[i].prioretyT){
+                dataOfTheTask[i].prioretyT = "Medium";
+            } else if (3 == dataOfTheTask[i].prioretyT){
+                dataOfTheTask[i].prioretyT = "High";
+            }
+    
+    
+            newButton.innerHTML = `<div class="">
+            ${greenCircle}
+            </div>
+            <div class="">
+                <div class="fw-bold">${dataOfTheTask[i].titleT}</div>
+                <div class="">
+                    <div class="fw-light"># created in ${dataOfTheTask[i].dateT}</div>
+                    <div class="" title="including as many details as possible.">${dataOfTheTask[i].descriptionT}</div>
+                </div>
+                <div class="">
+                    <span type="button" class="btn btn-primary">${dataOfTheTask[i].prioretyT}</span>
+                    <span type="button" class="btn btn-secondary">${dataOfTheTask[i].typeT}</span>
+                </div>
+            </div>`;
+    
+            // =================add the button and its content to the page=================
+           // this numbers [1,2,3] are the indicator of the status
+            if (  1 == dataOfTheTask[i].statuseT) {
+                var wichLine = document.querySelector('#to-do-tasks');
+            } else if  (2 == dataOfTheTask[i].statuseT){
+                var wichLine = document.querySelector('#in-progress-tasks');
+            } else if (3 == dataOfTheTask[i].statuseT ) {
+                var wichLine = document.querySelector('#done-tasks'); 
+            }
+    
+            wichLine.appendChild(newButton);
+        }
+    }
+
+    showdata();
+
 
 
    
