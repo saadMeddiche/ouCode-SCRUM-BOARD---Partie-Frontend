@@ -46,13 +46,14 @@ let fakeIndex;
     saveOrUpdateButton.onclick = function(){
 
         
-
+        // This loop to know wich type has been choosen
         for(let k =0; k<checkbox.length;k++){
             if(checkbox[k].checked==1){
                 type=checkbox[k].value;
             }
         }
         
+        //Objet
         let newTask = {
             titleT:title.value,
             typeT:type ,
@@ -62,11 +63,13 @@ let fakeIndex;
             descriptionT:description.value
         };
 
+        //Because i work just on one Modal ! I need to switch between update mode and add mode 
         if (modAddOrUpdate === 'Add'){
             // Push the object to the array
             dataOfTheTask.push(newTask);   
         } else {
             dataOfTheTask[fakeIndex] =newTask;
+            //Resest to the default
             modAddOrUpdate = 'Add';
             document.getElementById('exampleModalLabel').innerHTML = 'Add Task';
             saveOrUpdateButton.innerHTML='Save';
@@ -81,6 +84,7 @@ let fakeIndex;
         clearInputs();
 
         //Temporarie solution
+        //Reload the page
         window.location.reload();
      }
     
@@ -134,6 +138,7 @@ let fakeIndex;
             }
     
             //Solution of printing [1,2,3] instead of [low,medium,High]
+            //!!!! i think it was better to change the value in stead of doing this
             if ( 1 == dataOfTheTask[i].prioretyT ){
                 dataOfTheTask[i].prioretyT = "low";
             } else if (2 == dataOfTheTask[i].prioretyT){
@@ -175,14 +180,13 @@ let fakeIndex;
         }
     }
  
-    
 //================================Delete Fonction================================
     function deleteTask(i){
         //Remove case from an array
         //https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Array/splice
         dataOfTheTask.splice(i,1);
 
-        //after removing the data from the array we shouls also remove it from the local storaje
+        //after removing the data from the array we should also remove it from the local storaje
         localStorage.tasks = JSON.stringify(dataOfTheTask);
 
         //Relaod tha page
