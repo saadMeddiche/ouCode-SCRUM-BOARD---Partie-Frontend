@@ -7,9 +7,13 @@ let fakeIndex;
     
     // Call the type and specific wich type has been choosen
     //https://stackoverflow.com/questions/14544104/checkbox-check-event-listener    [Event de clique]
-    checkboxFeature = document.getElementById('flexRadioDefault2');
+    //Amine
+    let checkbox= document.querySelectorAll('#flexRadioDefault');
+
+    let Options= document.querySelectorAll('#Option');
+
+    let Cancel = document.querySelectorAll('cancelButton');
     
-   
     // Call the priorety
     let priorety = document.getElementById('Priorety');
 
@@ -46,9 +50,16 @@ let fakeIndex;
     saveOrUpdateButton.onclick = function(){
 
         
+
+        for(let k =0; k<checkbox.length;k++){
+            if(checkbox[k].checked==1){
+                type=checkbox[k].value;
+            }
+        }
+        
         let newTask = {
             titleT:title.value,
-            typeT:type,
+            typeT:type ,
             prioretyT:priorety.value,
             statuseT:statuse.value,
             dateT:date.value,
@@ -61,7 +72,7 @@ let fakeIndex;
         } else {
             dataOfTheTask[fakeIndex] =newTask;
             modAddOrUpdate = 'Add';
-            document.getElementById('exampleModalLabel').innerHTML = 'Add Task'
+            document.getElementById('exampleModalLabel').innerHTML = 'Add Task';
             saveOrUpdateButton.innerHTML='Save';
         }
          
@@ -182,35 +193,44 @@ let fakeIndex;
         //https://stackoverflow.com/questions/3715047/how-to-reload-a-page-using-javascript
         window.location.reload();
 
-        
     }
 
     showTasks();
 //================================UpdateFonction================================
     function updateTask(i){
-        
+        //Change the title of the model
         document.getElementById('exampleModalLabel').innerHTML = 'Update the task'
+
+        //Change the buttin from save to update
         saveOrUpdateButton.innerHTML='Update';
+
+        //The indicatore of TypeMode
         modAddOrUpdate = 'Update';
         fakeIndex=i;
         
-
+        //desplay the data of the selected task
         title.value = dataOfTheTask[fakeIndex].titleT
 
-        if (dataOfTheTask[fakeIndex].typeT === 'Bug') {
-           document.getElementById('flexRadioDefault2').checked = true;
-           document.getElementById('flexRadioDefault1').checked = false;
+        if (checkbox[0].value == dataOfTheTask[fakeIndex].typeT) {
+           checkbox[0].checked = true;
+           checkbox[1].checked = false;
         }
 
-
-        if(dataOfTheTask[fakeIndex].typeT === 'Feature'){
-            document.getElementById('flexRadioDefault2').checked = false;
-             document.getElementById('flexRadioDefault1').checked = true;
+        if(checkbox[1].value == dataOfTheTask[fakeIndex].typeT){
+            checkbox[0].checked = false;
+           checkbox[1].checked = true;
         }
-        
 
-        
+        date.value = dataOfTheTask[fakeIndex].dateT
+
+        description.value = dataOfTheTask[fakeIndex].descriptionT
+
+
     }
+
+
+    
+
 
 
 
