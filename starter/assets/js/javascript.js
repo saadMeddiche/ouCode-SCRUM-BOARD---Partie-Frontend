@@ -6,16 +6,10 @@ let fakeIndex;
     let title = document.getElementById('title');
     
     // Call the type and specific wich type has been choosen
-    let checkbox = document.getElementById('flexRadioDefault1');
-    checkbox.addEventListener('change' , a=>{ 
-
-        if (a.target.checked){
-            type="Feature";
-        } else{
-            type="Bug";
-        }
-    });
-
+    //https://stackoverflow.com/questions/14544104/checkbox-check-event-listener    [Event de clique]
+    checkboxFeature = document.getElementById('flexRadioDefault2');
+    
+   
     // Call the priorety
     let priorety = document.getElementById('Priorety');
 
@@ -50,6 +44,8 @@ let fakeIndex;
     }
     
     saveOrUpdateButton.onclick = function(){
+
+        
         let newTask = {
             titleT:title.value,
             typeT:type,
@@ -156,7 +152,7 @@ let fakeIndex;
                     <button onclick="updateTask(${i})" data-bs-toggle="modal" data-bs-target="#exampleModal" type="button" class="btn btn-success">Up</button>
                 </div>
             </div>
-            >`;
+            `;
     
             // =================add the button and its content to the page=================
            // this numbers [1,2,3] are the indicator of the status
@@ -197,10 +193,26 @@ let fakeIndex;
         saveOrUpdateButton.innerHTML='Update';
         modAddOrUpdate = 'Update';
         fakeIndex=i;
+        
+
+        title.value = dataOfTheTask[fakeIndex].titleT
+
+        if (dataOfTheTask[fakeIndex].typeT === 'Bug') {
+           document.getElementById('flexRadioDefault2').checked = true;
+           document.getElementById('flexRadioDefault1').checked = false;
+        }
+
+
+        if(dataOfTheTask[fakeIndex].typeT === 'Feature'){
+            document.getElementById('flexRadioDefault2').checked = false;
+             document.getElementById('flexRadioDefault1').checked = true;
+        }
+        
+
+        
     }
 
 
 
 
 
-   
