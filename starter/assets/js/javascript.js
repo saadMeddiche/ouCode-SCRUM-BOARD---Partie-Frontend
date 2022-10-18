@@ -155,7 +155,8 @@ let fakeIndex;
                 <div class="fw-bold">${dataOfTheTask[i].titleT}</div>
                 <div class="">
                     <div class="fw-light">#${i+1} created in ${dataOfTheTask[i].dateT}</div>
-                    <div class="" title="including as many details as possible.">${dataOfTheTask[i].descriptionT}</div>
+                    <!-- Condition ? true : false https://www.w3schools.com/jsref/jsref_substring.asp  -->
+                    <div class="" title="${dataOfTheTask[i].descriptionT}">${(dataOfTheTask[i].descriptionT).length > 30 ? dataOfTheTask[i].descriptionT.substring(0,30)+"..." : dataOfTheTask[i].descriptionT}</div>
                 </div>
                 <div class="">
                     <span type="button" class="btn btn-primary">${dataOfTheTask[i].prioretyT}</span>
