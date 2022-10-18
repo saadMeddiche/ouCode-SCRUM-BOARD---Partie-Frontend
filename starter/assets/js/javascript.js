@@ -1,9 +1,10 @@
-
+var type;
+let fakeIndex;
 // ====================================Call====================================
 
     // Call the title
     let title = document.getElementById('title');
-
+    
     // Call the type and specific wich type has been choosen
     let checkbox = document.getElementById('flexRadioDefault1');
     checkbox.addEventListener('change' , a=>{ 
@@ -27,6 +28,14 @@
     //Call the description
     let description = document.getElementById('exampleFormControlTextarea1');
 
+    //Call saveOrUpdateButton
+    let saveOrUpdateButton =document.getElementById('saveOrUpdateButton');
+
+    //this var helps to change from add fonction to update fonction
+    let modAddOrUpdate = 'Add';
+
+    
+
 ////====================================Fonctions====================================   
 //================================Add task Fonction================================
 
@@ -40,7 +49,7 @@
         dataOfTheTask =[];
     }
     
-    saveButton.onclick = function(){
+    saveOrUpdateButton.onclick = function(){
         let newTask = {
             titleT:title.value,
             typeT:type,
@@ -50,8 +59,16 @@
             descriptionT:description.value
         };
 
-        // Push the object to the array
-        dataOfTheTask.push(newTask); 
+        if (modAddOrUpdate === 'Add'){
+            // Push the object to the array
+            dataOfTheTask.push(newTask);   
+        } else {
+            dataOfTheTask[fakeIndex] =newTask;
+            modAddOrUpdate = 'Add';
+            document.getElementById('exampleModalLabel').innerHTML = 'Add Task'
+            saveOrUpdateButton.innerHTML='Save';
+        }
+         
 
         // store the data in local
         //https://www.youtube.com/watch?v=WNQgl__ihHY&list=PLknwEmKsW8Os2kzf3qjR34Z5FS8-pDoLN&index=4   [8:45]
@@ -88,8 +105,8 @@
 
             // i didn't know how to add an attribute to this button [So when i clique a task the Delete & update TASK MODAL Pop up]
             //https://developer.mozilla.org/en-US/docs/Web/API/Element/setAttribute
-            newButton.setAttribute('data-bs-toggle','modal');
-            newButton.setAttribute('data-bs-target','#staticBackdrop');
+            // newButton.setAttribute('data-bs-toggle','modal');
+            // newButton.setAttribute('data-bs-target','#exampleModal');
 
             // i didn't know how to add an event to this button [So when i clique a task i can know the index of it]
             //https://www.w3schools.com/js/js_htmldom_eventlistener.asp
@@ -135,7 +152,8 @@
                 <div class="">
                     <span type="button" class="btn btn-primary">${dataOfTheTask[i].prioretyT}</span>
                     <span type="button" class="btn btn-secondary">${dataOfTheTask[i].typeT}</span>
-                    <button onclick="deleteTask(${i})" type="button" class="btn btn-danger" id="deleteButton">X</button>
+                    <button onclick="deleteTask(${i})" type="button" class="btn btn-danger" >X</button>
+                    <button onclick="updateTask(${i})" data-bs-toggle="modal" data-bs-target="#exampleModal" type="button" class="btn btn-success">Up</button>
                 </div>
             </div>
             >`;
@@ -156,23 +174,31 @@
  
     
 //================================Delete Fonction================================
-   
-function deleteTask(i){
-    //Remove case from an array
-    //https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Array/splice
-    dataOfTheTask.splice(i,1);
+    function deleteTask(i){
+        //Remove case from an array
+        //https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Array/splice
+        dataOfTheTask.splice(i,1);
 
-    //after removing the data from the array we shouls also remove it from the local storaje
-    localStorage.tasks = JSON.stringify(dataOfTheTask);
+        //after removing the data from the array we shouls also remove it from the local storaje
+        localStorage.tasks = JSON.stringify(dataOfTheTask);
 
-    //Relaod tha page
-    //https://stackoverflow.com/questions/3715047/how-to-reload-a-page-using-javascript
-    window.location.reload();
+        //Relaod tha page
+        //https://stackoverflow.com/questions/3715047/how-to-reload-a-page-using-javascript
+        window.location.reload();
 
-    
-}
+        
+    }
 
-showTasks();
+    showTasks();
+//================================UpdateFonction================================
+    function updateTask(i){
+        
+        document.getElementById('exampleModalLabel').innerHTML = 'Update the task'
+        saveOrUpdateButton.innerHTML='Update';
+        modAddOrUpdate = 'Update';
+        fakeIndex=i;
+    }
+
 
 
 

@@ -173,89 +173,13 @@
 
 		<div class="modal-footer">
 		  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="cancelButton">Cancel</button>
-		  <button type="button" class="btn btn-primary" id="saveButton">Save</button>
+		  <button type="button" class="btn btn-primary" id="saveOrUpdateButton">Save</button>
 		</div>
 	  </div>
 	</div>
   </div>
 
-  <!-- Delete & Modifie TASK MODAL-->
-  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-	<div class="modal-dialog">
-	  <div class="modal-content">
-		<div class="modal-header">
-		  <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-		  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-		</div>
-		<div class="modal-body">
-			<!-- Contenu -->
-			<div>
-				<p class="mb-0 fw-bold">Title</p>
-			</div>	
-			<!-- title -->
-			<div class="input-group mb-3">
-				<input id="title" type="text" class="form-control" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
-			 </div>
-			<!-- checks -->
-			<div>
-				<p  class="mb-0 fw-bold">Type</p>
-			</div>	
-			<div class="form-check ms-2">
-				<input  class="form-check-input feature" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-				<label class="form-check-label" for="flexRadioDefault1">
-				  Feature
-				</label>
-			</div>
-			<div  class="form-check mb-2 ms-2">
-				<input  class="form-check-input bug" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
-				<label  class="form-check-label" for="flexRadioDefault2">
-				  Bug
-				</label>
-			</div>
-			<!-- select -->
-			<div>
-				<p class="mb-0 fw-bold">Priorety</p>
-			</div>
-			<!-- Priorety -->
-			<select id ="Priorety" class="form-select" aria-label="Default select example">
-				<option selected>Open this select menu</option>
-				<option value="1">Low</option>
-				<option value="2">Medium</option>
-				<option value="3">High</option>
-			</select>
-
-			<div>
-				<p class="mb-0 mt-2 fw-bold">Status</p>
-			</div>
-			<select id ="Status" class="form-select" aria-label="Default select example">
-				<option selected>Open this select menu</option>
-				<option value="1">To do</option>
-				<option value="2">IN progress</option>
-				<option value="3">Done</option>
-			</select>
-			<!-- date -->
-			<div>
-				<p class="mb-0 mt-2 fw-bold">Date</p>
-			</div>
-			<div class="well ">
-				<input type="date" class="span2  w-100 h-35px m-0" value="02-16-2012" id="dp1" >
-			</div>
-			<!-- description -->
-			<div>
-				<p class="mb-0 mt-2 fw-bold">Descriptions</p>
-			</div>
-		    <div class="mb-3">
-				<textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-			  </div>
-		</div>
-		<div class="modal-footer">
-		  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-		  <button type="button" class="btn btn btn-success" id="updateButton">Update</button>
-		  <button  type="button" class="btn btn-danger" id="deleteButton">delete</button>
-		</div>
-	  </div>
-	</div>
-  </div>
+  
 	
 	<!-- ================== BEGIN core-js ================== -->
 	<script src="assets/js/vendor.min.js"></script>
