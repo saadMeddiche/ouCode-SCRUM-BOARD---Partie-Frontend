@@ -29,7 +29,9 @@ let fakeIndex;
     let modAddOrUpdate = 'Add';
 
     
+    
 
+    
 ////====================================Fonctions====================================   
 //================================Add task Fonction================================
 
@@ -123,6 +125,7 @@ let fakeIndex;
             //=================Add the content to the new button=================
             //indicate the form of the green circle
             var greenCircle ; 
+            //https://boxicons.com/?query=trash  Site of icons
             if (  1 == dataOfTheTask[i].statuseT) {
                 greenCircle = `<i class="text-sm-start mx-1">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(16, 239, 10, 1);transform: ;msFilter:;"><path d="M12 6a3.939 3.939 0 0 0-3.934 3.934h2C10.066 8.867 10.934 8 12 8s1.934.867 1.934 1.934c0 .598-.481 1.032-1.216 1.626a9.208 9.208 0 0 0-.691.599c-.998.997-1.027 2.056-1.027 2.174V15h2l-.001-.633c.001-.016.033-.386.441-.793.15-.15.339-.3.535-.458.779-.631 1.958-1.584 1.958-3.182A3.937 3.937 0 0 0 12 6zm-1 10h2v2h-2z"></path><path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z"></path></svg>
@@ -146,25 +149,40 @@ let fakeIndex;
             } else if (3 == dataOfTheTask[i].prioretyT){
                 dataOfTheTask[i].prioretyT = "High";
             }
-    
-    
-            newButton.innerHTML = `<div class="">
+
+            //Show Move button only in To do and in progress
+            var showMove;
+            if(dataOfTheTask[i].statuseT == 1 || dataOfTheTask[i].statuseT == 2){
+                showMove = `<button  type="button" class="btn btn-warning mb-2 " > <i> <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(255, 255, 255, 1);transform: ;msFilter:;"><path d="M5.536 21.886a1.004 1.004 0 0 0 1.033-.064l13-9a1 1 0 0 0 0-1.644l-13-9A1 1 0 0 0 5 3v18a1 1 0 0 0 .536.886z"></path></svg> </i> </button>
+                `;
+            }else {
+                showMove = ``;
+            }
+
+            //https://boxicons.com/?query=mark  Site des icon
+            newButton.innerHTML = `<div class="w-30">
             ${greenCircle}
             </div>
-            <div class="">
+            <div class="w-100">
                 <div class="fw-bold">${dataOfTheTask[i].titleT}</div>
                 <div class="">
                     <div class="fw-light">#${i+1} created in ${dataOfTheTask[i].dateT}</div>
                     <!-- Condition ? true : false https://www.w3schools.com/jsref/jsref_substring.asp  -->
                     <div class="" title="${dataOfTheTask[i].descriptionT}">${(dataOfTheTask[i].descriptionT).length > 30 ? dataOfTheTask[i].descriptionT.substring(0,30)+"..." : dataOfTheTask[i].descriptionT}</div>
                 </div>
-                <div class="">
-                    <span type="button" class="btn btn-primary">${dataOfTheTask[i].prioretyT}</span>
-                    <span type="button" class="btn btn-secondary">${dataOfTheTask[i].typeT}</span>
-                    <button onclick="deleteTask(${i})" type="button" class="btn btn-danger" >X</button>
-                    <button onclick="updateTask(${i})" data-bs-toggle="modal" data-bs-target="#exampleModal" type="button" class="btn btn-success">Up</button>
+                <div class="d-sm-flex gap-5 mt-2">
+                    <div class="mb-2">
+                        <span type="button" class="btn btn-primary mb-2">${dataOfTheTask[i].prioretyT}</span>
+                        <span type="button" class="btn btn-secondary mb-2">${dataOfTheTask[i].typeT}</span>
+                    </div>
+                    <div class="">
+                        <button onclick="deleteTask(${i})" type="button" class="btn btn-danger mb-2 me-1" > <i><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(255, 255, 255, 1);transform: ;msFilter:;"><path d="M6 7H5v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7H6zm4 12H8v-9h2v9zm6 0h-2v-9h2v9zm.618-15L15 2H9L7.382 4H3v2h18V4z"></path></svg></i</button>
+                        <button onclick="updateTask(${i})" data-bs-toggle="modal" data-bs-target="#exampleModal" type="button" class="btn btn-success mb-2 ">Up</button>
+                        ${showMove}
+                    </div>
                 </div>
             </div>
+           
             `;
     
             // =================add the button and its content to the page=================
@@ -260,6 +278,14 @@ console.log(dataOfTheTask[fakeIndex].statuseT);
 
 
     }
+
+// This fonction only refresh the site after clicking cancel
+    function cancelButton() {
+        window.location.reload();
+    }
+    
+// Change status task
+    
 
 
     
