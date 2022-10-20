@@ -1,5 +1,7 @@
-var type;
-let fakeIndex;
+var type; // Feature or Bug
+let fakeIndex; // fakeIndex = i ; index of each task
+let moveButtonIndex; // moveButtonIndex = i; index of each task
+var toDo =0;
 // ====================================Call====================================
 
     // Call the title
@@ -25,14 +27,18 @@ let fakeIndex;
     //Call saveOrUpdateButton
     let saveOrUpdateButton =document.getElementById('saveOrUpdateButton');
 
-    //this var helps to change from add fonction to update fonction
+    //this var helps to change from add fonction to update fonction [because i work on the same modal]
     let modAddOrUpdate = 'Add';
 
-    
-    
+    //Call the counts of each status
+    let toDoTasksCount = document.getElementById('to-do-tasks-count');
+    let inProgressTasksCount = document.getElementById('in-progress-tasks-count');
+    let doneTasksCount = document.getElementById('done-tasks-count');
 
-    
+
+   
 ////====================================Fonctions====================================   
+
 //================================Add task Fonction================================
 
     //Solution for [delete old tasks and replace it with new ones]
@@ -144,6 +150,8 @@ let fakeIndex;
             //!!!! i think it was better to change the value in stead of doing this
             if ( 1 == dataOfTheTask[i].prioretyT ){
                 dataOfTheTask[i].prioretyT = "low";
+                toDo += 1;
+                toDoTasksCount.innerHTML = "todo";
             } else if (2 == dataOfTheTask[i].prioretyT){
                 dataOfTheTask[i].prioretyT = "Medium";
             } else if (3 == dataOfTheTask[i].prioretyT){
@@ -153,7 +161,7 @@ let fakeIndex;
             //Show Move button only in To do and in progress
             var showMove;
             if(dataOfTheTask[i].statuseT == 1 || dataOfTheTask[i].statuseT == 2){
-                showMove = `<button  type="button" class="btn btn-warning mb-2 " > <i> <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(255, 255, 255, 1);transform: ;msFilter:;"><path d="M5.536 21.886a1.004 1.004 0 0 0 1.033-.064l13-9a1 1 0 0 0 0-1.644l-13-9A1 1 0 0 0 5 3v18a1 1 0 0 0 .536.886z"></path></svg> </i> </button>
+                showMove = `<button  onclick="moveTask(${i})" type="button" class="btn btn-warning mb-2 " > <i> <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(255, 255, 255, 1);transform: ;msFilter:;"><path d="M5.536 21.886a1.004 1.004 0 0 0 1.033-.064l13-9a1 1 0 0 0 0-1.644l-13-9A1 1 0 0 0 5 3v18a1 1 0 0 0 .536.886z"></path></svg> </i> </button>
                 `;
             }else {
                 showMove = ``;
@@ -189,6 +197,7 @@ let fakeIndex;
            // this numbers [1,2,3] are the indicator of the status
             if (  1 == dataOfTheTask[i].statuseT) {
                 var wichLine = document.querySelector('#to-do-tasks');
+
             } else if  (2 == dataOfTheTask[i].statuseT){
                 var wichLine = document.querySelector('#in-progress-tasks');
             } else if (3 == dataOfTheTask[i].statuseT ) {
@@ -260,16 +269,16 @@ console.log(dataOfTheTask[fakeIndex].statuseT);
         //How to select an option
         //https://stackoverflow.com/questions/78932/how-do-i-programmatically-set-the-value-of-a-select-box-element-using-javascript
         if( dataOfTheTask[fakeIndex].statuseT == 1){
-            statuse.value = '1';
-            dataOfTheTask[fakeIndex].statuseT = '1';
+            statuse.value = 1;
+            dataOfTheTask[fakeIndex].statuseT = 1;
         }
         if( dataOfTheTask[fakeIndex].statuseT == 2){
-            statuse.value = '2';
-            dataOfTheTask[fakeIndex].statuseT = '2';
+            statuse.value = 2;
+            dataOfTheTask[fakeIndex].statuseT = 2;
         }
         if( dataOfTheTask[fakeIndex].statuseT == 3){
-            statuse.value = '3';
-            dataOfTheTask[fakeIndex].statuseT = '3';
+            statuse.value = 3;
+            dataOfTheTask[fakeIndex].statuseT = 3;
         }
 
         date.value = dataOfTheTask[fakeIndex].dateT
@@ -284,14 +293,24 @@ console.log(dataOfTheTask[fakeIndex].statuseT);
         window.location.reload();
     }
     
-// Change status task
+//================================Change status task Function================================
+    function moveTask(i){
+        moveButtonIndex= i ;
+        var temp = dataOfTheTask[moveButtonIndex].statuseT;
+        // i Used the Condition in stead of temp+= 1; beacuase the value was a string
+        if(temp == 1){
+            dataOfTheTask[moveButtonIndex].statuseT = '2';
+        }
+        if(temp == 2){
+            dataOfTheTask[moveButtonIndex].statuseT = '3';
+        }
+        //Restock the data in local
+        localStorage.setItem('tasks', JSON.stringify(dataOfTheTask)); 
+        window.location.reload();
+    }
+
+//================================Count Function/================================
+
     
-
-
-    
-
-
-
-
 
 
