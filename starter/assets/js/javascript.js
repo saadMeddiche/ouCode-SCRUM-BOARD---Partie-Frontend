@@ -2,6 +2,8 @@ var type; // Feature or Bug
 let fakeIndex; // fakeIndex = i ; index of each task
 let moveButtonIndex; // moveButtonIndex = i; index of each task
 var toDo =0;
+var inProgress=0;
+var done = 0;
 // ====================================Call====================================
 
     // Call the title
@@ -150,8 +152,6 @@ var toDo =0;
             //!!!! i think it was better to change the value in stead of doing this
             if ( 1 == dataOfTheTask[i].prioretyT ){
                 dataOfTheTask[i].prioretyT = "low";
-                toDo += 1;
-                toDoTasksCount.innerHTML = "todo";
             } else if (2 == dataOfTheTask[i].prioretyT){
                 dataOfTheTask[i].prioretyT = "Medium";
             } else if (3 == dataOfTheTask[i].prioretyT){
@@ -197,11 +197,19 @@ var toDo =0;
            // this numbers [1,2,3] are the indicator of the status
             if (  1 == dataOfTheTask[i].statuseT) {
                 var wichLine = document.querySelector('#to-do-tasks');
-
+                //The count of the tasks that have the same status
+                toDo += 1;
+                toDoTasksCount.innerHTML = `${toDo}`;
             } else if  (2 == dataOfTheTask[i].statuseT){
                 var wichLine = document.querySelector('#in-progress-tasks');
+                //The count of the tasks that have the same status
+                inProgress+=1;
+                inProgressTasksCount.innerHTML = `${inProgress}`;
             } else if (3 == dataOfTheTask[i].statuseT ) {
                 var wichLine = document.querySelector('#done-tasks'); 
+                //The count of the tasks that have the same status
+                done+=1;
+                doneTasksCount.innerHTML = `${done}`;
             }
             //Temporarie solution
             wichLine.appendChild(newButton);
