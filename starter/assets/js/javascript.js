@@ -1,6 +1,7 @@
 var type; // Feature or Bug
 let fakeIndex; // fakeIndex = i ; index of each task
 let moveButtonIndex; // moveButtonIndex = i; index of each task
+//Counters
 var toDo =0;
 var inProgress=0;
 var done = 0;
@@ -158,13 +159,20 @@ var done = 0;
                 dataOfTheTask[i].prioretyT = "High";
             }
 
-            //Show Move button only in To do and in progress
+            //Show Move--> button only in To do and in progress
             var showMove;
             if(dataOfTheTask[i].statuseT == 1 || dataOfTheTask[i].statuseT == 2){
                 showMove = `<button  onclick="moveTask(${i})" type="button" class="btn btn-warning mb-2 " > <i> <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(255, 255, 255, 1);transform: ;msFilter:;"><path d="M5.536 21.886a1.004 1.004 0 0 0 1.033-.064l13-9a1 1 0 0 0 0-1.644l-13-9A1 1 0 0 0 5 3v18a1 1 0 0 0 .536.886z"></path></svg> </i> </button>
                 `;
             }else {
                 showMove = ``;
+            }
+            //Show Move <-- button only in progress
+            var showMove2;
+            if(dataOfTheTask[i].statuseT == 2 || dataOfTheTask[i].statuseT == 3){
+                showMove2 = `<button  onclick="moveTask2(${i})" type="button" class="btn btn-warning mb-2 " > <i> <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(255, 255, 255, 1);transform: ;msFilter:;"><path d="m4.431 12.822 13 9A1 1 0 0 0 19 21V3a1 1 0 0 0-1.569-.823l-13 9a1.003 1.003 0 0 0 0 1.645z"></path></svg> </i> </button>`
+            }else {
+                showMove2 = ``;
             }
 
             //https://boxicons.com/?query=mark  Site des icon
@@ -178,15 +186,20 @@ var done = 0;
                     <!-- Condition ? true : false https://www.w3schools.com/jsref/jsref_substring.asp  -->
                     <div class="" title="${dataOfTheTask[i].descriptionT}">${(dataOfTheTask[i].descriptionT).length > 30 ? dataOfTheTask[i].descriptionT.substring(0,30)+"..." : dataOfTheTask[i].descriptionT}</div>
                 </div>
-                <div class="d-sm-flex gap-5 mt-2">
+                <div class="d-sm-flex gap-5 mt-2 ">
                     <div class="mb-2">
                         <span type="button" class="btn btn-primary mb-2">${dataOfTheTask[i].prioretyT}</span>
                         <span type="button" class="btn btn-secondary mb-2">${dataOfTheTask[i].typeT}</span>
                     </div>
                     <div class="">
-                        <button onclick="deleteTask(${i})" type="button" class="btn btn-danger mb-2 me-1" > <i><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(255, 255, 255, 1);transform: ;msFilter:;"><path d="M6 7H5v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7H6zm4 12H8v-9h2v9zm6 0h-2v-9h2v9zm.618-15L15 2H9L7.382 4H3v2h18V4z"></path></svg></i</button>
-                        <button onclick="updateTask(${i})" data-bs-toggle="modal" data-bs-target="#exampleModal" type="button" class="btn btn-success mb-2 ">Up</button>
-                        ${showMove}
+                        <div class="">
+                            <button onclick="deleteTask(${i})" type="button" class="btn btn-danger mb-2 me-1" > <i><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(255, 255, 255, 1);transform: ;msFilter:;"><path d="M6 7H5v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7H6zm4 12H8v-9h2v9zm6 0h-2v-9h2v9zm.618-15L15 2H9L7.382 4H3v2h18V4z"></path></svg></i</button>
+                            <button onclick="updateTask(${i})" data-bs-toggle="modal" data-bs-target="#exampleModal" type="button" class="btn btn-success mb-2 ">Up</button>
+                        </div>
+                        <div class="">
+                            ${showMove2}
+                            ${showMove}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -197,16 +210,19 @@ var done = 0;
            // this numbers [1,2,3] are the indicator of the status
             if (  1 == dataOfTheTask[i].statuseT) {
                 var wichLine = document.querySelector('#to-do-tasks');
+
                 //The count of the tasks that have the same status
                 toDo += 1;
                 toDoTasksCount.innerHTML = `${toDo}`;
             } else if  (2 == dataOfTheTask[i].statuseT){
                 var wichLine = document.querySelector('#in-progress-tasks');
+
                 //The count of the tasks that have the same status
                 inProgress+=1;
                 inProgressTasksCount.innerHTML = `${inProgress}`;
             } else if (3 == dataOfTheTask[i].statuseT ) {
                 var wichLine = document.querySelector('#done-tasks'); 
+
                 //The count of the tasks that have the same status
                 done+=1;
                 doneTasksCount.innerHTML = `${done}`;
@@ -302,6 +318,7 @@ console.log(dataOfTheTask[fakeIndex].statuseT);
     }
     
 //================================Change status task Function================================
+    // Move forward
     function moveTask(i){
         moveButtonIndex= i ;
         var temp = dataOfTheTask[moveButtonIndex].statuseT;
@@ -317,7 +334,24 @@ console.log(dataOfTheTask[fakeIndex].statuseT);
         window.location.reload();
     }
 
-//================================Count Function/================================
+    //Move backward
+    function moveTask2(i){
+        moveButtonIndex= i ;
+        var temp = dataOfTheTask[moveButtonIndex].statuseT;
+        // i Used the Condition in stead of temp+= 1; beacuase the value was a string
+        if(temp == 2){
+            dataOfTheTask[moveButtonIndex].statuseT = '1';
+        }
+        if(temp == 3){
+            dataOfTheTask[moveButtonIndex].statuseT = '2';
+        }
+        //Restock the data in local
+        localStorage.setItem('tasks', JSON.stringify(dataOfTheTask)); 
+        window.location.reload();
+
+    }
+
+
 
     
 
